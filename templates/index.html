@@ -1,0 +1,388 @@
+{% load static %}<!doctype html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sri Iyyanar Catering Service</title>
+<meta name="description" content="Sri Iyyanar Catering Service, Chithayal, Thanjavur. Veg and non-veg catering for all functions, on order, with door delivery.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@500;600;700;800&family=DM+Sans:wght@400;500;700&family=Mukta+Malar:wght@400;500;700&family=Noto+Sans+Tamil:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#"><span class="sri">ஸ்ரீ</span> ஐய்யனார் கேட்டரிங்</a>
+  <nav class="topnav" aria-label="Main">
+    <a href="#about-pop" id="about-link">About</a>
+    {% if user.is_staff %}
+      <a href="{% url 'admin:index' %}" id="admin-link">Admin panel</a>
+      <form method="post" action="{% url 'admin:logout' %}">{% csrf_token %}<button type="submit">Logout</button></form>
+    {% else %}
+      <a href="{% url 'admin:login' %}?next=/" id="admin-link">Admin</a>
+    {% endif %}
+  </nav>
+</header>
+
+<div class="admin-info admin-pop about-card" id="about-pop" hidden>
+  <div class="ab-top">
+    <div class="ab-av" aria-hidden="true">M</div>
+    <div>
+      <p class="ab-tag">Website designer</p>
+      <h3 class="ab-name">Muthumani</h3>
+    </div>
+  </div>
+  <p class="ab-text">Designed this website. Need a website for your business? Get in touch.</p>
+  <p class="ab-phone">6381948582</p>
+  <div class="row">
+    <a class="btn btn-call" href="tel:+916381948582">Call</a>
+    <a class="btn btn-wa-solid" href="https://wa.me/916381948582" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</div>
+
+{% if user.is_staff %}
+<div class="adminbar">
+  <span class="badge">Admin mode</span>
+  <a href="#gallery">Add or remove photos and videos</a>
+  <a href="#reviews">Manage reviews</a>
+  <span>Visitors cannot see this bar.</span>
+</div>
+{% endif %}
+
+{% if messages %}
+<div class="msgs" role="status">
+  {% for m in messages %}<p class="msg {{ m.tags }}">{{ m }}</p>{% endfor %}
+</div>
+{% endif %}
+
+<div class="hero">
+  <div class="blessing"><span class="sri">ஸ்ரீ</span> ஐய்யனார் துணை &nbsp;•&nbsp; <span class="sri">ஸ்ரீ</span> முனியாண்டவர் துணை</div>
+  <div class="wrap hero-grid">
+    <div>
+      <h1><span class="sri">ஸ்ரீ</span> ஐய்யனார் கேட்டரிங் சர்வீஸ்</h1>
+      <p class="en">SRI IYYANAR CATERING SERVICE</p>
+      <p class="tag">உங்கள் விசேஷம், எங்கள் அறுசுவையுடன்...</p>
+      <p class="sub">Pure veg and non-veg catering for every function in and around Thanjavur. Cooked fresh, on order, with door delivery.</p>
+      <div class="actions">
+        <a class="btn btn-call" href="#book">Book your function</a>
+        <a class="btn btn-wa" href="tel:+917395830160">Call 7395830160</a>
+        <a class="btn btn-wa" href="tel:+919080195675">Call 9080195675</a>
+      </div>
+    </div>
+    <figure class="hero-photo">
+      <img src="{% static 'img/veg.jpg' %}" alt="Vegetarian meal served on a banana leaf with rice, puri, papad and curries" width="1089" height="402">
+      <figcaption>விருந்து</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="trust">
+  <div class="wrap trust-grid">
+    <div><b>சைவம் + அசைவம்</b><span>Veg and non-veg</span></div>
+    <div><b>டோர் டெலிவரி</b><span>Door delivery</span></div>
+  </div>
+</div>
+
+
+<section id="menu">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">எங்கள் உணவு (Our food)</span>
+      <h2>சைவம் மற்றும் அசைவம்</h2>
+      <p>Veg and non-veg meals for weddings, temple functions, house events and every other occasion. Tell us the date and the number of guests and we plan the menu with you.</p>
+    </div>
+    <div class="menu-grid">
+      <article class="menu-card">
+        <img src="{% static 'img/veg.jpg' %}" alt="Vegetarian banana leaf meal" width="1089" height="402">
+        <div class="menu-body">
+          <h3><span class="dot" aria-hidden="true"></span> சைவ உணவுகள் (Veg)</h3>
+          <p>Traditional leaf meals with rice, curries, side dishes and sweets, cooked the way a family function expects.</p>
+        </div>
+      </article>
+      <article class="menu-card">
+        <img src="{% static 'img/nonveg.jpg' %}" alt="Non-vegetarian spread with fish fry, chicken, mutton and biryani" width="936" height="426">
+        <div class="menu-body">
+          <h3><span class="dot nv" aria-hidden="true"></span> அசைவ உணவுகள் (Non-veg)</h3>
+          <p>Biryani, fish and meat dishes served hot, prepared fresh for your guests.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">எங்கள் சேவை (What we do)</span>
+      <h2>அனைத்து விசேஷங்களுக்கும் சமைத்துத் தரப்படும்</h2>
+      <p>திருமணம், வரவேற்பு, நிச்சயதார்த்தம், கோவில் விழா, இல்ல விழா, பிறந்தநாள் என எல்லா விசேஷங்களுக்கும் சைவ, அசைவ உணவு சமைத்துத் தருகிறோம். We cook for all functions.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc"><h3>தரமாகவும் சுவையாகவும்</h3><p>Good ingredients, careful cooking and the taste people remember after the function.</p></div>
+      <div class="svc"><h3>டோர் டெலிவரி</h3><p>Door delivery available. We bring the food to your venue or your home.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="book">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">முன்பதிவு (Booking)</span>
+      <h2>உங்கள் விசேஷத்தை முன்பதிவு செய்யுங்கள்</h2>
+      <p>Fill in the details. We prepare the booking message for you, and you send it to Deva by WhatsApp or SMS in one tap. Your booking is confirmed when Deva replies.</p>
+    </div>
+    <form class="card" id="bookform" novalidate data-url="{% url 'catering:book' %}">
+      {% csrf_token %}
+      <div class="form-grid">
+        <div class="field"><label for="b-name">பெயர் (Your name)</label><input type="text" id="b-name" autocomplete="name" required></div>
+        <div class="field"><label for="b-phone">கைபேசி எண் (Mobile number)</label><input type="tel" id="b-phone" inputmode="numeric" autocomplete="tel" placeholder="10 digits" required></div>
+        <div class="field full"><label for="b-event">விசேஷம் (Function)</label>
+          <div class="fn-box">
+            <p class="fn-hint">தேர்வு செய்யுங்கள் அல்லது எழுதுங்கள் (Tap one, or type your own function below)</p>
+            <div class="fn-chips" id="fn-chips">
+              <button type="button" class="fn-chip" data-v="திருமணம் (Wedding)">திருமணம்<small>Wedding</small></button>
+              <button type="button" class="fn-chip" data-v="வரவேற்பு (Reception)">வரவேற்பு<small>Reception</small></button>
+              <button type="button" class="fn-chip" data-v="நிச்சயதார்த்தம் (Engagement)">நிச்சயதார்த்தம்<small>Engagement</small></button>
+              <button type="button" class="fn-chip" data-v="கோவில் விழா (Temple function)">கோவில் விழா<small>Temple function</small></button>
+              <button type="button" class="fn-chip" data-v="இல்ல விழா (House function)">இல்ல விழா<small>House function</small></button>
+              <button type="button" class="fn-chip" data-v="பிறந்தநாள் (Birthday)">பிறந்தநாள்<small>Birthday</small></button>
+            </div>
+            <input type="text" id="b-event" maxlength="80" placeholder="விசேஷத்தின் பெயர் (Type function name)" autocomplete="off">
+          </div></div>
+        <div class="field"><label for="b-date">தேதி (Function date)</label><input type="date" id="b-date" required></div>
+        <div class="field"><label for="b-guests">நபர்கள் (Number of guests)</label><input type="number" id="b-guests" min="1" inputmode="numeric" required></div>
+        <fieldset class="field"><legend>உணவு (Food)</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="food" value="Veg" checked><span>சைவம் (Veg)</span></label>
+            <label class="choice"><input type="radio" name="food" value="Non-veg"><span>அசைவம் (Non-veg)</span></label>
+            <label class="choice"><input type="radio" name="food" value="Veg and non-veg"><span>இரண்டும் (Both)</span></label>
+          </div></fieldset>
+        <fieldset class="field"><legend>டோர் டெலிவரி (Door delivery)</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="deliv" value="Yes" checked><span>வேண்டும் (Yes)</span></label>
+            <label class="choice"><input type="radio" name="deliv" value="No"><span>வேண்டாம் (No)</span></label>
+          </div></fieldset>
+        <div class="field full"><label for="b-venue">இடம் (Venue or delivery address)</label><input type="text" id="b-venue" autocomplete="street-address"></div>
+        <div class="field full"><label for="b-notes">குறிப்பு (Anything else?)</label><textarea id="b-notes" placeholder="Menu wishes, timing, special needs"></textarea></div>
+        <fieldset class="field full"><legend>யாருக்கு அனுப்ப வேண்டும் (Send booking to)</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="sendto" value="917395830160" checked><span>Deva · 7395830160</span></label>
+            <label class="choice"><input type="radio" name="sendto" value="919080195675"><span>Kalidoss · 9080195675</span></label>
+          </div></fieldset>
+      </div>
+      <p class="err" id="b-err" role="alert"></p>
+      <div class="row"><button class="btn btn-main" type="submit">Prepare booking message</button></div>
+      <div class="care">
+        <p><strong>Need help or have a question?</strong> Call our customer care and talk to us directly.</p>
+        <div class="row"><a class="btn btn-call" href="tel:+917395830160">Deva: 7395830160</a><a class="btn btn-call" href="tel:+919080195675">Kalidoss: 9080195675</a></div>
+      </div>
+    </form>
+    <div class="ready" id="b-ready" hidden>
+      <h3>Your booking message is ready. It has not been sent yet.</h3>
+      <pre id="b-msg"></pre>
+      <div class="row">
+        <a class="btn btn-wa-solid" id="b-wa" href="#" target="_blank" rel="noopener">Send on WhatsApp</a>
+        <a class="btn btn-main" id="b-sms" href="#">Send as SMS</a>
+        <a class="btn btn-line" href="tel:+917395830160">Call to confirm</a>
+        <button class="btn btn-line" type="button" id="b-copy">Copy message</button>
+      </div>
+      <p class="note" id="b-note" aria-live="polite">Tap WhatsApp or SMS, then press send in that app. If a button does nothing on your phone, copy the message and send it to the number you chose.</p>
+    </div>
+  </div>
+</section>
+
+{% if items or user.is_staff %}
+<section id="gallery">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">புகைப்படங்கள் (Gallery)</span>
+      <h2>தமிழ்நாடு விழாக்கள்</h2>
+      <p>Photos and videos from functions we have catered across Tamil Nadu.</p>
+    </div>
+
+    {% if user.is_staff %}
+    <div class="admin">
+      <div class="admin-bar"><span class="badge">Admin only</span><button class="btn btn-main" type="button" id="gal-open">+ Add photo or video</button></div>
+      <form class="card" id="gal-form" method="post" action="{% url 'catering:gallery_add' %}" enctype="multipart/form-data" hidden>
+        {% csrf_token %}
+        <div class="form-grid">
+          <div class="field full"><label for="g-files">Photos or videos from your phone or computer</label><input type="file" id="g-files" name="files" accept="image/*,video/*" multiple></div>
+          <div class="field full"><label for="g-link">Or paste a video link (YouTube, Facebook, Instagram)</label><input type="text" id="g-link" name="link" inputmode="url" placeholder="https://"></div>
+          <div class="field full"><label for="g-cap">Caption (optional)</label><input type="text" id="g-cap" name="caption" maxlength="140" placeholder="Example: Wedding lunch, Thanjavur"></div>
+        </div>
+        <p class="note-sm">Photos up to 10 MB, videos up to 50 MB each.</p>
+        <div class="row">
+          <button class="btn btn-main" type="submit">Save to gallery</button>
+          <button class="btn btn-line" type="button" id="g-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+    {% endif %}
+
+    {% if not items %}
+    <div class="rev-empty"><strong>No photos or videos yet</strong>Tap "Add photo or video" above to upload your first one. Visitors will see them here.</div>
+    {% endif %}
+
+    <div class="gallery-grid">
+      {% for it in items %}
+      <figure class="g-item">
+        {% if it.kind == 'photo' %}
+          <img src="{{ it.file.url }}" alt="{{ it.caption|default:'Function photo' }}" loading="lazy">
+        {% elif it.kind == 'video' %}
+          <video src="{{ it.file.url }}" controls preload="metadata" playsinline></video>
+        {% else %}
+          <a class="g-link" href="{{ it.link }}" target="_blank" rel="noopener noreferrer"><strong>Watch video</strong><span>{{ it.link }}</span></a>
+        {% endif %}
+        {% if it.caption %}<figcaption>{{ it.caption }}</figcaption>{% endif %}
+        {% if user.is_staff %}
+        <div class="del-row">
+          <form class="inline-form" method="post" action="{% url 'catering:gallery_delete' it.pk %}" data-confirm="Delete this from the gallery?">{% csrf_token %}<button class="btn-sm danger" type="submit">Delete</button></form>
+        </div>
+        {% endif %}
+      </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="services" id="reviews">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">மதிப்புரைகள் (Reviews)</span>
+      <h2>வாடிக்கையாளர் கருத்துகள்</h2>
+      <p>What customers say about our food and service. Ate with us? Write a short review. It is shown here after the owner approves it.</p>
+    </div>
+    <div class="rev-grid">
+      <div>
+        {% if review_count %}
+        <div class="rev-summary">
+          <span class="rev-avg">{{ review_avg }}</span>
+          <span class="stars" aria-label="{{ review_avg }} out of 5 stars">{% for i in "12345" %}<span>★</span>{% endfor %}</span>
+          <span>from {{ review_count }} review{{ review_count|pluralize }}</span>
+        </div>
+        {% endif %}
+
+        {% if user.is_staff and pending %}
+        <div class="rev-list" style="margin-bottom:1rem">
+          <span class="badge">Admin only · waiting for approval</span>
+          {% for r in pending %}
+          <article class="rev" style="border-style:dashed">
+            <span class="stars" aria-label="{{ r.rating }} out of 5 stars">{% for i in "12345" %}<span {% if forloop.counter > r.rating %}class="off"{% endif %}>★</span>{% endfor %}</span>
+            <span class="who">{{ r.name|default:"Customer" }}</span>
+            <span class="meta">{% if r.place %}{{ r.place }} · {% endif %}{{ r.created|date:"d M Y" }}</span>
+            <p>{{ r.text }}</p>
+            <div class="del-row">
+              <form class="inline-form" method="post" action="{% url 'catering:review_approve' r.pk %}">{% csrf_token %}<button class="btn-sm" type="submit">Approve</button></form>
+              <form class="inline-form" method="post" action="{% url 'catering:review_delete' r.pk %}" data-confirm="Delete this review?">{% csrf_token %}<button class="btn-sm danger" type="submit">Delete</button></form>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="rev-list">
+          {% for r in reviews %}
+          <article class="rev">
+            <span class="stars" aria-label="{{ r.rating }} out of 5 stars">{% for i in "12345" %}<span {% if forloop.counter > r.rating %}class="off"{% endif %}>★</span>{% endfor %}</span>
+            <span class="who">{{ r.name|default:"Customer" }}</span>
+            <span class="meta">{% if r.place %}{{ r.place }} · {% endif %}{{ r.created|date:"M Y" }}</span>
+            <p>{{ r.text }}</p>
+            {% if user.is_staff %}
+            <div class="del-row">
+              <form class="inline-form" method="post" action="{% url 'catering:review_delete' r.pk %}" data-confirm="Delete this review?">{% csrf_token %}<button class="btn-sm danger" type="submit">Delete</button></form>
+            </div>
+            {% endif %}
+          </article>
+          {% empty %}
+          <div class="rev-empty"><strong>முதல் மதிப்புரையை நீங்கள் எழுதுங்கள்</strong>No reviews here yet. Be the first to share how your function went.</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <form class="card" id="revform" method="post" action="{% url 'catering:review_submit' %}" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="rating" id="r-rating" value="">
+        <div class="form-grid">
+          <div class="field full"><span id="r-star-label" style="font-weight:700;font-size:0.9rem">மதிப்பீடு (Your rating)</span>
+            <div class="star-pick" id="r-stars" role="radiogroup" aria-labelledby="r-star-label"></div></div>
+          <div class="field"><label for="r-name">பெயர் (Your name)</label><input type="text" id="r-name" name="name" maxlength="80" autocomplete="name"></div>
+          <div class="field"><label for="r-place">ஊர் (Town or village)</label><input type="text" id="r-place" name="place" maxlength="80"></div>
+          <div class="field full"><label for="r-text">உங்கள் கருத்து (Your review)</label><textarea id="r-text" name="text" maxlength="1500" placeholder="How was the food, the service and the delivery?"></textarea></div>
+        </div>
+        <p class="err" id="r-err" role="alert"></p>
+        <div class="row"><button class="btn btn-main" type="submit">Send review</button></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="owner">
+  <div class="wrap owner-grid">
+    <div class="owner-photo"><img src="{% static 'img/deva.webp' %}" alt="Deva, owner of Sri Iyyanar Catering Service" width="744" height="697"></div>
+    <div>
+      <span class="eyebrow">உரிமையாளர் (Owner)</span>
+      <h2>தேவா</h2>
+      <p class="role">Owner, Sri Iyyanar Catering Service</p>
+      <p>தெய்வத்திரு கோ. அசோகன் அவர்களின் நல்லாசியுடன் எங்கள் சேவை தொடர்கிறது.</p>
+      <p>Started with the blessings of the late Mr. Ko. Asokan. Call Deva directly to talk about your function.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow">தொடர்புக்கு (Contact)</span>
+    <h2>உங்கள் விசேஷத்திற்கு அழையுங்கள்</h2>
+    <div class="num-grid">
+      <div class="num-card">
+        <p class="num-label">Deva (Owner) உரிமையாளர்</p>
+        <p class="phone">7395830160</p>
+        <div class="row">
+          <a class="btn btn-call" href="tel:+917395830160">Call</a>
+          <a class="btn btn-wa" href="https://wa.me/917395830160" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn btn-wa" href="sms:+917395830160">SMS</a>
+          <button class="btn btn-copy" type="button" data-copy="7395830160">Copy</button>
+        </div>
+      </div>
+      <div class="num-card">
+        <p class="num-label">Kalidoss (Owner) உரிமையாளர்</p>
+        <p class="phone">9080195675</p>
+        <div class="row">
+          <a class="btn btn-call" href="tel:+919080195675">Call</a>
+          <a class="btn btn-wa" href="https://wa.me/919080195675" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn btn-wa" href="sms:+919080195675">SMS</a>
+          <button class="btn btn-copy" type="button" data-copy="9080195675">Copy</button>
+        </div>
+      </div>
+    </div>
+    <p class="note" id="copynote" aria-live="polite">வாடிக்கையாளர் சேவை (Customer care on both numbers)</p>
+    <div class="addr">
+      <span class="eyebrow">முகவரி (Address)</span>
+      <address>
+        சித்தாயல், ராயந்தூர் அஞ்சல், தஞ்சை 613 602.<br>
+        Chithayal, Rayanthur Post, Thanjavur 613 602
+      </address>
+      <p class="note">டோர் டெலிவரி செய்து தரப்படும் (Door delivery available)</p>
+      <div class="row"><a class="btn btn-wa" href="https://www.google.com/maps/search/?api=1&amp;query=Chithayal+Rayanthur+Thanjavur+613602" target="_blank" rel="noopener">Open in Google Maps</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <p>© Sri Iyyanar Catering Service, Chithayal, Thanjavur</p>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a class="btn btn-main" href="#book">Book</a>
+  <a class="btn btn-call" href="tel:+917395830160">Call 1</a>
+  <a class="btn btn-call" href="tel:+919080195675">Call 2</a>
+  <a class="btn btn-wa" href="https://wa.me/917395830160" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
