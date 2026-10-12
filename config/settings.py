@@ -6,9 +6,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # On your own computer these defaults are fine.
 # On a real server set DJANGO_SECRET_KEY, DJANGO_DEBUG=0 and DJANGO_ALLOWED_HOSTS.
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "change-this-secret-key-before-going-live")
+
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-local-development-only-key")
 DEBUG = os.environ.get("DJANGO_DEBUG", "1") == "1"
-ALLOWED_HOSTS = [h for h in os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",") if h]
+ALLOWED_HOSTS = [
+    h.strip()
+    for h in os.environ.get(
+        "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1"
+    ).split(",")
+    if h.strip()
+]
+
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
