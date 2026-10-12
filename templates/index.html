@@ -320,8 +320,7 @@
           {% if review_count %}
           <div class="rev-summary">
             <span class="rev-avg">{{ review_avg }}</span>
-            <span class="stars" aria-label="{{ review_avg }} out of 5 stars">{% for i in "12345" %}<span>★</span>{%
-              endfor %}</span>
+            <span class="stars" aria-label="{{ review_avg }} out of 5 stars">{% for i in "12345" %}<span>★</span>{% endfor %}</span>
             <span>from {{ review_count }} review{{ review_count|pluralize }}</span>
           </div>
           {% endif %}
@@ -331,17 +330,13 @@
             <span class="badge">Admin only · waiting for approval</span>
             {% for r in pending %}
             <article class="rev" style="border-style:dashed">
-              <span class="stars" aria-label="{{ r.rating }} out of 5 stars">{% for i in "12345" %}<span {% if
-                  forloop.counter> r.rating %}class="off"{% endif %}>★</span>{% endfor %}</span>
+              <span class="stars" aria-label="{{ r.rating }} out of 5 stars">{% for i in "12345" %}{% if forloop.counter <= r.rating %}<span>★</span>{% else %}<span class="off">★</span>{% endif %}{% endfor %}</span>
               <span class="who">{{ r.name|default:"Customer" }}</span>
               <span class="meta">{% if r.place %}{{ r.place }} · {% endif %}{{ r.created|date:"d M Y" }}</span>
               <p>{{ r.text }}</p>
               <div class="del-row">
-                <form class="inline-form" method="post" action="{% url 'catering:review_approve' r.pk %}">{% csrf_token
-                  %}<button class="btn-sm" type="submit">Approve</button></form>
-                <form class="inline-form" method="post" action="{% url 'catering:review_delete' r.pk %}"
-                  data-confirm="Delete this review?">{% csrf_token %}<button class="btn-sm danger"
-                    type="submit">Delete</button></form>
+                <form class="inline-form" method="post" action="{% url 'catering:review_approve' r.pk %}">{% csrf_token %}<button class="btn-sm" type="submit">Approve</button></form>
+                <form class="inline-form" method="post" action="{% url 'catering:review_delete' r.pk %}" data-confirm="Delete this review?">{% csrf_token %}<button class="btn-sm danger" type="submit">Delete</button></form>
               </div>
             </article>
             {% endfor %}
@@ -351,46 +346,42 @@
           <div class="rev-list">
             {% for r in reviews %}
             <article class="rev">
-              <span class="stars" aria-label="{{ r.rating }} out of 5 stars">{% for i in "12345" %}<span {% if
-                  forloop.counter> r.rating %}class="off"{% endif %}>★</span>{% endfor %}</span>
+              <span class="stars" aria-label="{{ r.rating }} out of 5 stars">{% for i in "12345" %}{% if forloop.counter <= r.rating %}<span>★</span>{% else %}<span class="off">★</span>{% endif %}{% endfor %}</span>
               <span class="who">{{ r.name|default:"Customer" }}</span>
               <span class="meta">{% if r.place %}{{ r.place }} · {% endif %}{{ r.created|date:"M Y" }}</span>
               <p>{{ r.text }}</p>
               {% if user.is_staff %}
               <div class="del-row">
-                <form class="inline-form" method="post" action="{% url 'catering:review_delete' r.pk %}"
-                  data-confirm="Delete this review?">{% csrf_token %}<button class="btn-sm danger"
-                    type="submit">Delete</button></form>
+                <form class="inline-form" method="post" action="{% url 'catering:review_delete' r.pk %}" data-confirm="Delete this review?">{% csrf_token %}<button class="btn-sm danger" type="submit">Delete</button></form>
               </div>
               {% endif %}
             </article>
             {% empty %}
-            <div class="rev-empty"><strong>முதல் மதிப்புரையை நீங்கள் எழுதுங்கள்</strong>No reviews here yet. Be the
-              first to share how your function went.</div>
+            <div class="rev-empty"><strong>Be the first to review</strong> No reviews here yet. Be the first to share how your function went.</div>
             {% endfor %}
           </div>
         </div>
-
-        <form class="card" id="revform" method="post" action="{% url 'catering:review_submit' %}" novalidate>
-          {% csrf_token %}
-          <input type="hidden" name="rating" id="r-rating" value="">
-          <div class="form-grid">
-            <div class="field full"><span id="r-star-label" style="font-weight:700;font-size:0.9rem">மதிப்பீடு (Your
-                rating)</span>
-              <div class="star-pick" id="r-stars" role="radiogroup" aria-labelledby="r-star-label"></div>
-            </div>
-            <div class="field"><label for="r-name">பெயர் (Your name)</label><input type="text" id="r-name" name="name"
-                maxlength="80" autocomplete="name"></div>
-            <div class="field"><label for="r-place">ஊர் (Town or village)</label><input type="text" id="r-place"
-                name="place" maxlength="80"></div>
-            <div class="field full"><label for="r-text">உங்கள் கருத்து (Your review)</label><textarea id="r-text"
-                name="text" maxlength="1500" placeholder="How was the food, the service and the delivery?"></textarea>
-            </div>
-          </div>
-          <p class="err" id="r-err" role="alert"></p>
-          <div class="row"><button class="btn btn-main" type="submit">Send review</button></div>
-        </form>
       </div>
+      <form class="card" id="revform" method="post" action="{% url 'catering:review_submit' %}" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="rating" id="r-rating" value="">
+        <div class="form-grid">
+          <div class="field full"><span id="r-star-label" style="font-weight:700;font-size:0.9rem">மதிப்பீடு (Your
+              rating)</span>
+            <div class="star-pick" id="r-stars" role="radiogroup" aria-labelledby="r-star-label"></div>
+          </div>
+          <div class="field"><label for="r-name">பெயர் (Your name)</label><input type="text" id="r-name" name="name"
+              maxlength="80" autocomplete="name"></div>
+          <div class="field"><label for="r-place">ஊர் (Town or village)</label><input type="text" id="r-place"
+              name="place" maxlength="80"></div>
+          <div class="field full"><label for="r-text">உங்கள் கருத்து (Your review)</label><textarea id="r-text"
+              name="text" maxlength="1500" placeholder="How was the food, the service and the delivery?"></textarea>
+          </div>
+        </div>
+        <p class="err" id="r-err" role="alert"></p>
+        <div class="row"><button class="btn btn-main" type="submit">Send review</button></div>
+      </form>
+    </div>
     </div>
   </section>
 
